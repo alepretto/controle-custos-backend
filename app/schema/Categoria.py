@@ -2,12 +2,9 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
-class UserSchema(BaseModel):
-    id_user: int
-    login: str
-    senha: str
+class CategoriaSchema(BaseModel):
+    id_categoria_transacao: int
     nome: str
-    email: str
     created_at: datetime
     updated_at: datetime
 

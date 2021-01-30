@@ -1,0 +1,73 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "redshift-cluster-1.cgqbwob7utkg.us-west-2.redshift.amazonaws.com",
+            "port": 5439,
+            "driver": "AWS Redshift",
+            "name": "Redshift - Rede Decisão",
+            "database": "dev",
+            "username": "admin",
+            "password": "Passarinho09"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "db-homologacao.ckn809sqhgmv.us-east-1.rds.amazonaws.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "database": "meg4edu_prod",
+            "username": "admin",
+            "password": "passarinho09",
+            "name": "Gestão - Homologação"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "db-homologacao.ckn809sqhgmv.us-east-1.rds.amazonaws.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Gestão - Desenvolvimento",
+            "database": "meg4edu_test",
+            "username": "admin",
+            "password": "passarinho09"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "db-prod-read.ckn809sqhgmv.us-east-1.rds.amazonaws.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Gestão - Read",
+            "database": "meg4edu_prod",
+            "username": "admin",
+            "password": "passarinho09"
+        },
+        {
+            "previewLimit": 50,
+            "server": "10.6.0.249",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "Alterdata pack",
+            "database": "alterdata",
+            "username": "postgres",
+            "password": "postgres"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "My DB",
+            "database": "controle-custos",
+            "username": "postgres",
+            "password": "docker"
+        }
+    ]
+}

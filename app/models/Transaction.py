@@ -10,7 +10,7 @@ class EnumTipo(enum.Enum):
     income = "income"
 
 
-class Transaction(Base):
+class TransactionModel(Base):
     __tablename__ = "transactions"
 
     id_transacao = Column(Integer, primary_key=True, index=True)
@@ -21,5 +21,5 @@ class Transaction(Base):
     id_acao = Column(Integer, ForeignKey("acoes.id_acao"))
     tipo = Column(Enum(EnumTipo), nullable=False)
     valor = Column(Float, nullable=False)
-    created_at = Column(Date, server_default=datetime.now())
-    updated_at = Column(Date, server_default=datetime.now(), onupdate=datetime.now())
+    created_at = Column(Date, default=datetime.now())
+    updated_at = Column(Date, default=datetime.now(), onupdate=datetime.now())

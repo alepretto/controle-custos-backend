@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 from config.database import Base
 
 
-class User(Base):
+class UserModel(Base):
     __tablename__ = "users"
 
     id_user = Column(Integer, primary_key=True, index=True)
@@ -13,6 +13,6 @@ class User(Base):
     senha = Column(String(255), nullable=False)
     nome = Column(String(100), nullable=False)
     email = Column(String(100), nullable=False)
-    created_at = Column(Date, server_default=datetime.now())
-    updated_at = Column(Date, server_default=datetime.now(), onupdate=datetime.now())
+    created_at = Column(Date, default=datetime.now())
+    updated_at = Column(Date, default=datetime.now(), onupdate=datetime.now())
     transactions = relationship("Transaction", backref="user")

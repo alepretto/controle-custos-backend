@@ -5,11 +5,11 @@ from sqlalchemy.orm import relationship
 from config.database import Base
 
 
-class Categoria(Base):
+class CategoriaModel(Base):
     __tablename__ = "categoriasTransacoes"
 
     id_categoria_transacao = Column(Integer, primary_key=True)
     nome = Column(String)
-    created_at = Column(Date, server_default=datetime.now())
-    updated_at = Column(Date, server_default=datetime.now(), onupdate=datetime.now())
+    created_at = Column(Date, default=datetime.now())
+    updated_at = Column(Date, default=datetime.now(), onupdate=datetime.now())
     transaction = relationship("Transaction", backref="categoriaTransacao")
