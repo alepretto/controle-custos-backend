@@ -1,14 +1,18 @@
 from datetime import datetime
 from pydantic import BaseModel
+from typing import Optional
 
 
-class AcaoSchema(BaseModel):
-    id_acao: int
+class AcaoCreate(BaseModel):
     codigo: str
     descricao: str
-    url: str
-    logo: str
     setor: str
+    url: Optional[str] = ""
+    logo: Optional[str] = ""
+
+
+class AcaoSchema(AcaoCreate):
+    id_acao: int
     created_at: datetime
     updated_at: datetime
 

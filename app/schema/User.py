@@ -21,3 +21,11 @@ class CreateUser(BaseModel):
     senha: str
     nome: Optional[str] = "Estranho"
     email: str
+
+
+class UserUpdate(BaseModel):
+    id_user: int
+    login: Optional[str]
+    senha: Optional[str]
+    nome: Optional[str]
+    email: Optional[str]

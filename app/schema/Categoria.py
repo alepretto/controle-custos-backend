@@ -2,9 +2,12 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
-class CategoriaSchema(BaseModel):
-    id_categoria_transacao: int
+class CategoriaCreate(BaseModel):
     nome: str
+
+
+class CategoriaSchema(CategoriaCreate):
+    id_categoria_transacao: int
     created_at: datetime
     updated_at: datetime
 
