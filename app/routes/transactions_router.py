@@ -10,23 +10,24 @@ router = APIRouter(prefix="/transactions", tags=["transaction"])
 
 
 @router.post("/", response_model=TranscationSchema)
-def create_transaction(
+async def create_transaction(
     infos_transaction: TransactionCreate, db: Session = Depends(get_db)
 ):
+    print(infos_transaction)
     transaction_service = TransactionService(db)
     transaction_created = transaction_service.create_transaction(infos_transaction)
     return transaction_created
 
 
-@router.get("/", response_class=List[TranscationSchema])
-def list_transactions(db: Session = Depends(get_db)):
+@router.get("/", response_model=List[TranscationSchema])
+async def list_transactions(db: Session = Depends(get_db)):
     transaction_service = TransactionService(db)
     transactions = transaction_service.get_transactions()
     return transactions
 
 
 @router.get("/{id_transaction}", response_model=TranscationSchema)
-def get_transaction(id_transaction: int, db: Session = Depends(get_db)):
+async def get_transaction(id_transaction: int, db: Session = Depends(get_db)):
     transaction_service = TransactionService(db)
     transaction_filtred = transaction_service.get_transaction(id_transaction)
     return transaction_filtred

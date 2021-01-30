@@ -11,11 +11,11 @@ class AcaoService:
 
     def create_acao(self, acao: AcaoCreate):
         new_acao = AcaoModel(
-            acao.codigo,
-            acao.descricao,
-            acao.setor,
-            acao.logo,
-            acao.url,
+            codigo=acao.codigo,
+            descricao=acao.descricao,
+            setor=acao.setor,
+            logo=acao.logo,
+            url=acao.url,
         )
         self.db.add(new_acao)
         self.db.commit()
@@ -23,7 +23,7 @@ class AcaoService:
         return new_acao
 
     def get_acoes(self) -> List[AcaoSchema]:
-        acoes = self.db.query(AcaoModel).all()
+        acoes: List[AcaoSchema] = self.db.query(AcaoModel).all()
         return acoes
 
     def get_acao(self, id_acao) -> AcaoSchema:

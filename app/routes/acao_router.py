@@ -6,7 +6,7 @@ from ..schema.Acao import AcaoSchema, AcaoCreate
 from ..services.acao_service import AcaoService
 from ..helper.create_db_session import get_db
 
-router = APIRouter(prefix="/acoes", tag=["acao"])
+router = APIRouter(prefix="/acoes", tags=["acao"])
 
 
 @router.post("/", response_model=AcaoSchema)
@@ -19,8 +19,8 @@ async def create_acao(infos_acao: AcaoCreate, db: Session = Depends(get_db)):
 @router.get("/", response_model=List[AcaoSchema])
 async def list_acoes(db: Session = Depends(get_db)):
     api_acao = AcaoService(db)
-    api_acao.get_acoes()
-    return api_acao
+    acoes = api_acao.get_acoes()
+    return acoes
 
 
 @router.get("/{id_acao}", response_model=AcaoSchema)

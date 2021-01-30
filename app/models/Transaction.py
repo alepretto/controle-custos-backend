@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship
 from config.database import Base
 
 
-class EnumTipo(enum.Enum):
+class EnumTipo(str, enum.Enum):
     outcome = "outcome"
     income = "income"
 
@@ -17,7 +17,7 @@ class TransactionModel(Base):
     id_transacao = Column(Integer, primary_key=True, index=True)
     id_user = Column(Integer, ForeignKey("users.id_user"))
     id_categoria_transacao = Column(
-        Integer, ForeignKey("categoriasTransacoes.id_categoria_transacao")
+        Integer, ForeignKey("categorias_transacoes.id_categoria_transacao")
     )
     id_acao = Column(Integer, ForeignKey("acoes.id_acao"))
     tipo = Column(Enum(EnumTipo), nullable=False)
@@ -27,4 +27,4 @@ class TransactionModel(Base):
 
     user = relationship("UserModel", back_populates="transactions")
     acao = relationship("AcaoModel", back_populates="transactions")
-    categoriaTransacao = relationship("CategoriaModel", back_populates="transactions")
+    categoria_transacao = relationship("CategoriaModel", back_populates="transactions")

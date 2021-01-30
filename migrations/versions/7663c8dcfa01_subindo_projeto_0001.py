@@ -1,8 +1,8 @@
-"""Criando projeto
+"""Subindo Projeto 0001
 
-Revision ID: fd931a4b06e5
+Revision ID: 7663c8dcfa01
 Revises: 
-Create Date: 2021-01-30 15:08:08.175925
+Create Date: 2021-01-30 19:23:19.529310
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'fd931a4b06e5'
+revision = '7663c8dcfa01'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,7 +29,7 @@ def upgrade():
     sa.Column('updated_at', sa.TIMESTAMP(), nullable=True),
     sa.PrimaryKeyConstraint('id_acao')
     )
-    op.create_table('categoriasTransacoes',
+    op.create_table('categorias_transacoes',
     sa.Column('id_categoria_transacao', sa.Integer(), nullable=False),
     sa.Column('nome', sa.String(), nullable=True),
     sa.Column('created_at', sa.TIMESTAMP(), nullable=True),
@@ -57,7 +57,7 @@ def upgrade():
     sa.Column('created_at', sa.TIMESTAMP(), nullable=True),
     sa.Column('updated_at', sa.TIMESTAMP(), nullable=True),
     sa.ForeignKeyConstraint(['id_acao'], ['acoes.id_acao'], ),
-    sa.ForeignKeyConstraint(['id_categoria_transacao'], ['categoriasTransacoes.id_categoria_transacao'], ),
+    sa.ForeignKeyConstraint(['id_categoria_transacao'], ['categorias_transacoes.id_categoria_transacao'], ),
     sa.ForeignKeyConstraint(['id_user'], ['users.id_user'], ),
     sa.PrimaryKeyConstraint('id_transacao')
     )
@@ -71,6 +71,6 @@ def downgrade():
     op.drop_table('transactions')
     op.drop_index(op.f('ix_users_id_user'), table_name='users')
     op.drop_table('users')
-    op.drop_table('categoriasTransacoes')
+    op.drop_table('categorias_transacoes')
     op.drop_table('acoes')
     # ### end Alembic commands ###

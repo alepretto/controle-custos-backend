@@ -23,7 +23,9 @@ class CategoriaTransacaoService:
         return transacoes
 
     def get_categoria_transacao(self, id_categoria_transacao: int) -> CategoriaSchema:
-        categoria_filtred = self.db.query(CategoriaModel).filter(
-            CategoriaModel.id_categoria_transacao == id_categoria_transacao
+        categoria_filtred = (
+            self.db.query(CategoriaModel)
+            .filter(CategoriaModel.id_categoria_transacao == id_categoria_transacao)
+            .first()
         )
         return categoria_filtred

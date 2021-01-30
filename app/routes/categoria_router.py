@@ -7,11 +7,11 @@ from ..schema.Categoria import CategoriaSchema, CategoriaCreate
 from ..services.categorias_transactions_service import CategoriaTransacaoService
 from ..helper.create_db_session import get_db
 
-router = APIRouter(prefix="categorias-transacoes", tags=["categoria_transacao"])
+router = APIRouter(prefix="/categorias-transacoes", tags=["categoria_transacao"])
 
 
 @router.post("/", response_model=CategoriaSchema)
-def create_categoria(infos_categoria: CategoriaCreate, db: Session = Depends()):
+def create_categoria(infos_categoria: CategoriaCreate, db: Session = Depends(get_db)):
     categoria_service = CategoriaTransacaoService(db)
     new_cateogria = categoria_service.create_categoria_tranacao(infos_categoria)
     return new_cateogria
@@ -23,7 +23,7 @@ def lista_categorias(db: Session = Depends(get_db)):
     return categoria_service.list_categorias_transacoes()
 
 
-@router.get("/{id_categoria}", response_class=CategoriaSchema)
+@router.get("/{id_categoria}", response_model=CategoriaSchema)
 def get_categoria_transacao(id_categoria: int, db: Session = Depends(get_db)):
     categoria_service = CategoriaTransacaoService(db)
     categoria_filtrada = categoria_service.get_categoria_transacao(id_categoria)

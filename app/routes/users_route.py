@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Form
 from sqlalchemy.orm import Session
 
 from ..services.users_service import UserService
@@ -14,6 +14,7 @@ router = APIRouter(prefix="/users", tags=["user"])
 @router.post("/")
 async def create_user(user: CreateUser, db: Session = Depends(get_db)) -> UserSchema:
     service_user = UserService(db)
+    print(user)
     return service_user.crate_user(user)
 
 

@@ -6,10 +6,12 @@ from config.database import Base
 
 
 class CategoriaModel(Base):
-    __tablename__ = "categoriasTransacoes"
+    __tablename__ = "categorias_transacoes"
 
     id_categoria_transacao = Column(Integer, primary_key=True)
     nome = Column(String)
     created_at = Column(TIMESTAMP, default=datetime.now())
     updated_at = Column(TIMESTAMP, default=datetime.now(), onupdate=datetime.now())
-    transactions = relationship("TransactionModel", back_populates="categoriaTransacao")
+    transactions = relationship(
+        "TransactionModel", back_populates="categoria_transacao"
+    )

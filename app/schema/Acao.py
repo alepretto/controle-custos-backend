@@ -7,8 +7,8 @@ class AcaoCreate(BaseModel):
     codigo: str
     descricao: str
     setor: str
-    url: Optional[str] = ""
-    logo: Optional[str] = ""
+    url: Optional[str]
+    logo: Optional[str]
 
 
 class AcaoSchema(AcaoCreate):

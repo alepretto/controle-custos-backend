@@ -22,12 +22,13 @@ class TransactionService:
         self.db.refresh(new_transaction)
         return new_transaction
 
-    def get_transactions(self) -> List[TranscationSchema]:
-        transactions = self.db.query(TransactionModel).all()
+    def get_transactions(self):
+        transactions: List[TranscationSchema] = self.db.query(TransactionModel).all()
         return transactions
 
     def get_transaction(self, id_transaction: int) -> TranscationSchema:
-        transaction_filtred = self.db.query(TransactionModel).filter(
-            TransactionModel.id_transacao == id_transaction
+        return (
+            self.db.query(TransactionModel)
+            .filter(TransactionModel.id_transacao == id_transaction)
+            .first()
         )
-        return transaction_filtred
