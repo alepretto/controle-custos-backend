@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from ..schema.Acao import AcaoSchema, AcaoCreate
 from ..services.acao_service import AcaoService
-from ..helper.created_db_session import get_db
+from ..helper.create_db_session import get_db
 
 router = APIRouter(prefix="/acoes", tag=["acao"])
 
