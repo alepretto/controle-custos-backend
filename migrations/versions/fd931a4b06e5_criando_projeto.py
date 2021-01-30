@@ -1,8 +1,8 @@
-"""Criando modelo
+"""Criando projeto
 
-Revision ID: 386b9ba8d95b
+Revision ID: fd931a4b06e5
 Revises: 
-Create Date: 2021-01-30 11:23:23.268270
+Create Date: 2021-01-30 15:08:08.175925
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '386b9ba8d95b'
+revision = 'fd931a4b06e5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -25,15 +25,15 @@ def upgrade():
     sa.Column('url', sa.String(), nullable=True),
     sa.Column('logo', sa.String(), nullable=True),
     sa.Column('setor', sa.String(), nullable=True),
-    sa.Column('created_at', sa.Date(), nullable=True),
-    sa.Column('updated_at', sa.Date(), nullable=True),
+    sa.Column('created_at', sa.TIMESTAMP(), nullable=True),
+    sa.Column('updated_at', sa.TIMESTAMP(), nullable=True),
     sa.PrimaryKeyConstraint('id_acao')
     )
     op.create_table('categoriasTransacoes',
     sa.Column('id_categoria_transacao', sa.Integer(), nullable=False),
     sa.Column('nome', sa.String(), nullable=True),
-    sa.Column('created_at', sa.Date(), nullable=True),
-    sa.Column('updated_at', sa.Date(), nullable=True),
+    sa.Column('created_at', sa.TIMESTAMP(), nullable=True),
+    sa.Column('updated_at', sa.TIMESTAMP(), nullable=True),
     sa.PrimaryKeyConstraint('id_categoria_transacao')
     )
     op.create_table('users',
@@ -42,8 +42,8 @@ def upgrade():
     sa.Column('senha', sa.String(length=255), nullable=False),
     sa.Column('nome', sa.String(length=100), nullable=False),
     sa.Column('email', sa.String(length=100), nullable=False),
-    sa.Column('created_at', sa.Date(), nullable=True),
-    sa.Column('updated_at', sa.Date(), nullable=True),
+    sa.Column('created_at', sa.TIMESTAMP(), nullable=True),
+    sa.Column('updated_at', sa.TIMESTAMP(), nullable=True),
     sa.PrimaryKeyConstraint('id_user')
     )
     op.create_index(op.f('ix_users_id_user'), 'users', ['id_user'], unique=False)
@@ -54,8 +54,8 @@ def upgrade():
     sa.Column('id_acao', sa.Integer(), nullable=True),
     sa.Column('tipo', sa.Enum('outcome', 'income', name='enumtipo'), nullable=False),
     sa.Column('valor', sa.Float(), nullable=False),
-    sa.Column('created_at', sa.Date(), nullable=True),
-    sa.Column('updated_at', sa.Date(), nullable=True),
+    sa.Column('created_at', sa.TIMESTAMP(), nullable=True),
+    sa.Column('updated_at', sa.TIMESTAMP(), nullable=True),
     sa.ForeignKeyConstraint(['id_acao'], ['acoes.id_acao'], ),
     sa.ForeignKeyConstraint(['id_categoria_transacao'], ['categoriasTransacoes.id_categoria_transacao'], ),
     sa.ForeignKeyConstraint(['id_user'], ['users.id_user'], ),

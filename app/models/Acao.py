@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import Column, Integer, String, Date
+from sqlalchemy import Column, Integer, String, TIMESTAMP
 from sqlalchemy.orm import relationship
 from config.database import Base
 
@@ -14,6 +14,6 @@ class AcaoModel(Base):
     url = Column(String)
     logo = Column(String)
     setor = Column(String)
-    created_at = Column(Date, default=datetime.now())
-    updated_at = Column(Date, default=datetime.now(), onupdate=datetime.now)
-    transaction = relationship("Transaction", backref="acao")
+    created_at = Column(TIMESTAMP, default=datetime.now())
+    updated_at = Column(TIMESTAMP, default=datetime.now(), onupdate=datetime.now)
+    transactions = relationship("TransactionModel", back_populates="acao")

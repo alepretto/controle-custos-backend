@@ -1,8 +1,10 @@
 from datetime import datetime
 
-from sqlalchemy import Column, Integer, String, Date
+from sqlalchemy import Column, Integer, String, TIMESTAMP
 from sqlalchemy.orm import relationship
 from config.database import Base
+
+from .Transaction import TransactionModel
 
 
 class UserModel(Base):
@@ -13,6 +15,6 @@ class UserModel(Base):
     senha = Column(String(255), nullable=False)
     nome = Column(String(100), nullable=False)
     email = Column(String(100), nullable=False)
-    created_at = Column(Date, default=datetime.now())
-    updated_at = Column(Date, default=datetime.now(), onupdate=datetime.now())
-    transactions = relationship("Transaction", backref="user")
+    created_at = Column(TIMESTAMP, default=datetime.now())
+    updated_at = Column(TIMESTAMP, default=datetime.now(), onupdate=datetime.now())
+    transactions = relationship("TransactionModel", back_populates="user")

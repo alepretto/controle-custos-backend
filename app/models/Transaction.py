@@ -1,7 +1,8 @@
 from datetime import datetime
 import enum
 
-from sqlalchemy import Column, Integer, Float, Date, ForeignKey, Enum
+from sqlalchemy import Column, Integer, Float, TIMESTAMP, ForeignKey, Enum
+from sqlalchemy.orm import relationship
 from config.database import Base
 
 
@@ -21,5 +22,9 @@ class TransactionModel(Base):
     id_acao = Column(Integer, ForeignKey("acoes.id_acao"))
     tipo = Column(Enum(EnumTipo), nullable=False)
     valor = Column(Float, nullable=False)
-    created_at = Column(Date, default=datetime.now())
-    updated_at = Column(Date, default=datetime.now(), onupdate=datetime.now())
+    created_at = Column(TIMESTAMP, default=datetime.now())
+    updated_at = Column(TIMESTAMP, default=datetime.now(), onupdate=datetime.now())
+
+    user = relationship("UserModel", back_populates="transactions")
+    acao = relationship("AcaoModel", back_populates="transactions")
+    categoriaTransacao = relationship("CategoriaModel", back_populates="transactions")
