@@ -31,3 +31,11 @@ class TransactionCreate(BaseModel):
     id_acao: Optional[int] = None
     tipo: EnumTipo
     valor: float
+
+
+class TransactionUpdate(BaseModel):
+    id_user: Optional[int]
+    id_categoria_transacao: Optional[int]
+    id_acao: Optional[int] = None
+    tipo: Optional[EnumTipo]
+    valor: Optional[float]

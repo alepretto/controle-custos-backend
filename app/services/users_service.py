@@ -1,5 +1,7 @@
 from typing import Dict, List
 from sqlalchemy.orm import Session
+from fastapi.encoders import jsonable_encoder
+
 
 from ..schema.User import UserCreate, UserSchema, UserUpdate, UserLogin
 from ..models.User import UserModel
@@ -26,13 +28,30 @@ class UserService:
     def get_user(self, id_user):
         return self.db.query(UserModel).filter(UserModel.id_user == id_user).first()
 
-    def update_user(self, infos_user: UserUpdate):
+    def update_user(self, user_id: int, infos_user: UserUpdate) -> UserSchema:
+
+        infos_user = jsonable_encoder(infos_user.dict(exclude_unset=True))
+
+        self.db.query(UserModel).filter(UserModel.id_user == user_id).update(infos_user)
+
+        self.db.commit()
         usuario_selecionado = (
-            self.db.query(UserModel)
-            .filter(UserModel.id_user == infos_user.id_user)
-            .first()
+            self.db.query(UserModel).filter(UserModel.id_user == user_id).first()
         )
-        pass
+        return usuario_selecionado
+
+    def delete_user(self, user_id):
+        user_selecionado = (
+            self.db.query(UserModel).filter(UserModel.id_user == user_id).first()
+        )
+
+        if not user_selecionado:
+            raise ValueError("Usuário não encontrado")
+
+        self.db.delete(user_selecionado)
+        self.db.commit()
+
+        return True
 
     def login_user(self, user_info: UserLogin):
         user = (

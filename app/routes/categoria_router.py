@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends
 
 from sqlalchemy.orm import Session
 
-from ..schema.Categoria import CategoriaSchema, CategoriaCreate
+from ..schema.Categoria import CategoriaSchema, CategoriaCreate, CategoriaUpdate
 from ..services.categorias_transactions_service import CategoriaTransacaoService
 from ..helper.create_db_session import get_db
 
@@ -28,3 +28,21 @@ def get_categoria_transacao(id_categoria: int, db: Session = Depends(get_db)):
     categoria_service = CategoriaTransacaoService(db)
     categoria_filtrada = categoria_service.get_categoria_transacao(id_categoria)
     return categoria_filtrada
+
+
+@router.put("/{id_categoria}", response_model=CategoriaSchema)
+def update_categoria_transacao(
+    id_categoria: int, infos_categoria: CategoriaUpdate, db: Session = Depends(get_db)
+):
+    categoria_service = CategoriaTransacaoService(db)
+    categoria = categoria_service.update_categoria_transacao(
+        id_categoria, infos_categoria
+    )
+    return categoria
+
+
+@router.delete("/{id_categoria}")
+def delete_categoria(id_categoria: int, db: Session = Depends(get_db)):
+    categoria_service = CategoriaTransacaoService(db)
+    mensagem = categoria_service.delete_categoria_trancacao(id_categoria)
+    return {"msg": mensagem}

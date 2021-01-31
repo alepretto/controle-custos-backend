@@ -1,4 +1,6 @@
 from datetime import datetime
+from typing import Optional
+
 from pydantic import BaseModel
 
 
@@ -13,3 +15,7 @@ class CategoriaSchema(CategoriaCreate):
 
     class Config:
         orm_mode = True
+
+
+class CategoriaUpdate(BaseModel):
+    nome: Optional[str]

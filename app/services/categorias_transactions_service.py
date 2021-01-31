@@ -1,7 +1,7 @@
 from typing import List
 from sqlalchemy.orm import Session
 
-from ..schema.Categoria import CategoriaCreate, CategoriaSchema
+from ..schema.Categoria import CategoriaCreate, CategoriaSchema, CategoriaUpdate
 from ..models.Categoria import CategoriaModel
 
 
@@ -29,3 +29,34 @@ class CategoriaTransacaoService:
             .first()
         )
         return categoria_filtred
+
+    def update_categoria_transacao(
+        self, id_categori_transacao: int, infos_categoria: CategoriaUpdate
+    ):
+        infos_categoria = infos_categoria.dict(exclude_none=True)
+        self.db.query(CategoriaModel).filter(
+            CategoriaModel.id_categoria_transacao == id_categori_transacao
+        ).update(infos_categoria)
+        self.db.commit()
+
+        categoria = (
+            self.db.query(CategoriaModel)
+            .filter(CategoriaModel.id_categoria_transacao == id_categori_transacao)
+            .first()
+        )
+        return categoria
+
+    def delete_categoria_trancacao(self, id_categoria: int):
+        categoria = (
+            self.db.query(CategoriaModel)
+            .filter(CategoriaModel.id_categoria_transacao == id_categoria)
+            .first()
+        )
+        if categoria:
+            self.db.query(CategoriaModel).filter(
+                CategoriaModel.id_categoria_transacao == id_categoria
+            ).delete()
+            self.db.commit()
+            return "Categoria Excluida"
+        else:
+            raise ValueError("Categoria não encontrada")

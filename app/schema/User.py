@@ -23,7 +23,6 @@ class UserSchema(UserCreate):
 
 
 class UserUpdate(BaseModel):
-    id_user: int
     login: Optional[str]
     senha: Optional[str]
     nome: Optional[str]

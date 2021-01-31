@@ -18,3 +18,11 @@ class AcaoSchema(AcaoCreate):
 
     class Config:
         orm_mode = True
+
+
+class AcaoUpdate(BaseModel):
+    codigo: Optional[str]
+    descricao: Optional[str]
+    setor: Optional[str]
+    url: Optional[str]
+    logo: Optional[str]

@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, Body, HTTPException
 from sqlalchemy.orm import Session
 
 from ..services.users_service import UserService
-from ..schema.User import UserSchema, UserCreate, UserLogin
+from ..schema.User import UserSchema, UserCreate, UserLogin, UserUpdate
 from ..helper.create_db_session import get_db
 
 
@@ -30,6 +30,23 @@ async def get_user(id_user: int, db: Session = Depends(get_db)) -> UserSchema:
     service_user = UserService(db)
     user_filtred = service_user.get_user(id_user)
     return user_filtred
+
+
+@router.put("/{id_user}")
+async def update_user(
+    id_user: int, infos_user: UserUpdate, db: Session = Depends(get_db)
+):
+    user_service = UserService(db)
+    user_alterado = user_service.update_user(id_user, infos_user)
+    return user_alterado
+
+
+@router.delete("/{id_user}", status_code=201)
+async def delete_user(id_user: int, db: Session = Depends(get_db)):
+    user_service = UserService(db)
+    deleted = user_service.delete_user(id_user)
+    if deleted:
+        return {"infos": "Usuário excluido"}
 
 
 @router.post("/login")

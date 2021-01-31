@@ -1,7 +1,7 @@
 from typing import List
 from sqlalchemy.orm import Session
 
-from ..schema.Transaction import TransactionCreate, TranscationSchema
+from ..schema.Transaction import TransactionCreate, TranscationSchema, TransactionUpdate
 from ..models.Transaction import TransactionModel
 
 
@@ -27,8 +27,41 @@ class TransactionService:
         return transactions
 
     def get_transaction(self, id_transaction: int) -> TranscationSchema:
-        return (
+        try:
+            return (
+                self.db.query(TransactionModel)
+                .filter(TransactionModel.id_transacao == id_transaction)
+                .first()
+            )
+        except:
+            raise ValueError("Transação não encontrada")
+
+    def updated_transaction(
+        self, id_transaction: int, infos_transaction: TransactionUpdate
+    ):
+        infos_transaction = infos_transaction.dict(exclude_none=True)
+        self.db.query(TransactionModel).filter(
+            TransactionModel.id_transacao == id_transaction
+        ).update(infos_transaction)
+        self.db.commit()
+        transaction = (
             self.db.query(TransactionModel)
             .filter(TransactionModel.id_transacao == id_transaction)
             .first()
         )
+        return transaction
+
+    def delete_transaction(self, id_transaction: int):
+        transaction = (
+            self.db.query(TransactionModel)
+            .filter(TransactionModel.id_transacao == id_transaction)
+            .first()
+        )
+        if transaction:
+            self.db.query(TransactionModel).filter(
+                TransactionModel.id_transacao == id_transaction
+            ).delete()
+            self.db.commit()
+            return "Transação excluida"
+        else:
+            raise ValueError("Transação não encontrada")
