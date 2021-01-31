@@ -3,24 +3,23 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class UserSchema(BaseModel):
-    id_user: int
+class UserLogin(BaseModel):
     login: str
     senha: str
-    nome: Optional[str] = None
+
+
+class UserCreate(UserLogin):
+    nome: Optional[str] = "Estranho"
     email: str
+
+
+class UserSchema(UserCreate):
+    id_user: int
     created_at: datetime
     updated_at: datetime
 
     class Config:
         orm_mode = True
-
-
-class CreateUser(BaseModel):
-    login: str
-    senha: str
-    nome: Optional[str] = "Estranho"
-    email: str
 
 
 class UserUpdate(BaseModel):
