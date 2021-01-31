@@ -17,7 +17,7 @@ async def auth_user(request: Request, call_next):
             return JSONResponse({"error": "Token missing"}, status_code=401)
 
         if time.time() > time_expires:
-            raise JSONResponse({"error": "Token expire"}, status_code=401)
+            return JSONResponse({"error": "Token expire"}, status_code=401)
 
     response = await call_next(request)
     return response

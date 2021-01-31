@@ -18,7 +18,6 @@ async def create_acao(infos_acao: AcaoCreate, db: Session = Depends(get_db)):
 
 @router.get("/", response_model=List[AcaoSchema])
 async def list_acoes(request: Request, db: Session = Depends(get_db)):
-    print(request.headers)
     api_acao = AcaoService(db)
     acoes = api_acao.get_acoes()
     return acoes

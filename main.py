@@ -12,6 +12,7 @@ from app.auth.middleware_auth import auth_user
 app = FastAPI()
 
 app.add_middleware(BaseHTTPMiddleware, dispatch=auth_user)
+
 app.include_router(user_router)
 app.include_router(categoria_router)
 app.include_router(transactions_router)
